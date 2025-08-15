@@ -1,0 +1,25 @@
+class Solution {
+    public int lengthLongestPath(String input) {
+        String[] lines = input.split("\n");
+        int[] lengthAtDepth = new int[lines.length + 1];
+        int maxLen = 0;
+
+        for (String line : lines) {
+            // Count depth (number of tabs)
+            int depth = line.lastIndexOf("\t") + 1;
+
+            // Remove tabs to get name length
+            String name = line.replace("\t", "");
+
+            // Length till this depth = length till previous depth + current name + "/"
+            lengthAtDepth[depth + 1] = lengthAtDepth[depth] + name.length() + 1;
+
+            // If it's a file, update max length (minus extra "/")
+            if (name.contains(".")) {
+                maxLen = Math.max(maxLen, lengthAtDepth[depth + 1] - 1);
+            }
+        }
+        return maxLen;
+    }
+}
+©leetcode
