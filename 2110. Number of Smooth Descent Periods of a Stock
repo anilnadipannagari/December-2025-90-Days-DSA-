@@ -1,0 +1,16 @@
+class Solution {
+    public long getDescentPeriods(int[] prices) {
+        long count = 1;   // first element itself
+        long streak = 1;  // current descent streak length
+
+        for (int i = 1; i < prices.length; i++) {
+            if (prices[i-1] - prices[i] == 1) {
+                streak++;              // extend streak
+            } else {
+                streak = 1;            // reset streak
+            }
+            count += streak;           // add subarrays ending here
+        }
+        return count;
+    }
+}
