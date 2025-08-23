@@ -9,7 +9,7 @@ class Solution {
             } else {
                 streak = 1;            // reset streak
             }
-            count += streak;           // add subarrays ending here
+            count += streak;           // add to arr subarrays ending here
         }
         return count;
     }
