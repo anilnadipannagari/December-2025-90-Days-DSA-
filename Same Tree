@@ -1,0 +1,9 @@
+if (p == null && q == null) return true;
+        // Case 2: One null
+        if (p == null || q == null) return false;
+        // Case 3: Values differ
+        if (p.val != q.val) return false;
+
+        // Recurse on left and right
+        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+    
