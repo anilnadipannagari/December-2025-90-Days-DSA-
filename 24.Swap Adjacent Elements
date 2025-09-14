@@ -1,0 +1,24 @@
+// Definition for singly-linked list is provided by LeetCode.
+class Solution {
+    public ListNode swapPairs(ListNode head) {
+        // Dummy node helps handle the head easily
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode current = dummy;
+
+        // Traverse while at least two nodes remain
+        while (current.next != null && current.next.next != null) {
+            ListNode first = current.next;
+            ListNode second = current.next.next;
+
+            // Swap
+            first.next = second.next;
+            second.next = first;
+            current.next = second;
+
+            // Move to the next pair
+            current = first;
+        }
+        return dummy.next;
+    }
+}
