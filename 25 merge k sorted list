@@ -1,0 +1,32 @@
+
+import java.util.PriorityQueue;
+
+// ListNode is already provided by LeetCode
+class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        if (lists == null || lists.length == 0) return null;
+
+        // Min-heap ordered by node value
+        PriorityQueue<ListNode> pq =
+            new PriorityQueue<>((a, b) -> a.val - b.val);
+
+        // put first node of each list in the heap
+        for (ListNode node : lists) {
+            if (node != null) pq.add(node);
+        }
+
+        ListNode dummy = new ListNode(0);
+        ListNode tail = dummy;
+
+        while (!pq.isEmpty()) {
+            ListNode smallest = pq.poll();
+            tail.next = smallest;
+            tail = tail.next;
+
+            if (smallest.next != null) {
+                pq.add(smallest.next);
+            }
+        }
+        return dummy.next;
+    }
+}
