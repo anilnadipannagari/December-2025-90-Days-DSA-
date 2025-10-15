@@ -1,0 +1,17 @@
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        if (nums.length <= 2) return nums.length;
+
+        int j = 2; // pointer to place next allowed element
+
+        for (int i = 2; i < nums.length; i++) {
+            // Allow a number if it’s not the same as the one two places before
+            if (nums[i] != nums[j - 2]) {
+                nums[j] = nums[i];
+                j++;
+            }
+        }
+
+        return j;
+    }
+}
