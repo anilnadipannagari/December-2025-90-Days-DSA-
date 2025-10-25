@@ -1,0 +1,25 @@
+String ans = s;
+        int n = s.length();
+
+        for (int k = 1; k <= n; k++) {
+            // reverse first k letters
+            String a = "";
+            for (int i = k - 1; i >= 0; i--) {
+                a = a + s.charAt(i);
+            }
+            String s1 = a + s.substring(k);
+            if (s1.compareTo(ans) < 0) {
+                ans = s1;
+            }
+
+            // reverse last k letters
+            String b = "";
+            for (int i = n - 1; i >= n - k; i--) {
+                b = b + s.charAt(i);
+            }
+            String s2 = s.substring(0, n - k) + b;
+            if (s2.compareTo(ans) < 0) {
+                ans = s2;
+            }
+        }
+        return ans;
