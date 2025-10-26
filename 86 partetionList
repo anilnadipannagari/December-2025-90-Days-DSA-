@@ -1,0 +1,31 @@
+class Solution {
+    public ListNode partition(ListNode head, int x) {
+        // Create two dummy nodes to hold smaller and larger parts
+        ListNode smallHead = new ListNode(0);
+        ListNode largeHead = new ListNode(0);
+        
+        // Pointers to move along small and large lists
+        ListNode small = smallHead;
+        ListNode large = largeHead;
+        
+        // Traverse the list
+        while (head != null) {
+            if (head.val < x) {
+                small.next = head;  // add node to small list
+                small = small.next;
+            } else {
+                large.next = head;  // add node to large list
+                large = large.next;
+            }
+            head = head.next;  // move ahead
+        }
+        
+        // End the large list
+        large.next = null;
+        
+        // Connect small list with large list
+        small.next = largeHead.next;
+        
+        return smallHead.next;
+    }
+}
