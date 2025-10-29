@@ -1,0 +1,27 @@
+import java.util.*;
+
+public class BuyAndSellStock {
+  public static void main ( String[] args ) { 
+    Scanner sc = new Scanner ( System.in );
+    int arr[] = { 4, 8 ,9 ,1, 15,21};
+    BuyandSell( arr );
+  }
+
+public static int BuyandSell ( int[] arr ) { 
+
+    int maxProfit = 0;
+    int  minSell = 0;
+    for( int i=0; i<arr.length; i++ ) {
+          if ( arr[i] < minSell ) {
+              maxpofit += (minsell - arr[i]);
+              minSell = arr[i];
+              }
+          else {  
+                      minSell = arr[i];
+                              }
+}
+      return maxProfit;
+
+}
+
+}
