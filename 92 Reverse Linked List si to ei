@@ -1,0 +1,29 @@
+class Solution {
+    public ListNode reverseBetween(ListNode head, int left, int right) {
+        if (head == null || left == right) return head;
+
+        // Dummy node before head for easy reversal handling
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+
+        // Move to node before the reversal starts
+        ListNode prev = dummy;
+        for (int i = 1; i < left; i++) {
+            prev = prev.next;
+        }
+
+        // Start reversing
+        ListNode curr = prev.next;
+        ListNode nextNode = null;
+
+        // Reverse nodes from left to right
+        for (int i = 0; i < right - left; i++) {
+            nextNode = curr.next;
+            curr.next = nextNode.next;
+            nextNode.next = prev.next;
+            prev.next = nextNode;
+        }
+
+        return dummy.next;
+    }
+}
