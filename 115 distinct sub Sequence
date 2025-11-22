@@ -1,0 +1,30 @@
+class Solution {
+    public int numDistinct(String s, String t) {
+        int m = s.length();
+        int n = t.length();
+        
+        // dp[i][j] = number of ways to form t[0..j-1] from s[0..i-1]
+        long[][] dp = new long[m + 1][n + 1];
+        
+        // Base: empty t from any prefix of s
+        for (int i = 0; i <= m; i++) {
+            dp[i][0] = 1;
+        }
+        
+        // Fill table
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                // First, inherit ways from skipping s[i-1]
+                dp[i][j] = dp[i - 1][j];
+                
+                // If characters match, also add ways using this char
+                if (s.charAt(i - 1) == t.charAt(j - 1)) {
+                    dp[i][j] += dp[i - 1][j - 1];
+                }
+            }
+        }
+        
+        // The result fits into int per problem constraints, but we used long to avoid overflow mid-way
+        return (int) dp[m][n];
+    }
+}
