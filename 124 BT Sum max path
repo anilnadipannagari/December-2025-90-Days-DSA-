@@ -1,0 +1,25 @@
+class Solution {
+    int maxSum = Integer.MIN_VALUE; // global maximum
+
+    public int maxPathSum(TreeNode root) {
+        maxGain(root);
+        return maxSum;
+    }
+
+    private int maxGain(TreeNode node) {
+        if (node == null) return 0;
+
+        // ignore negative paths (since they reduce sum)
+        int leftGain = Math.max(maxGain(node.left), 0);
+        int rightGain = Math.max(maxGain(node.right), 0);
+
+        // max path that goes through this node
+        int currentPathSum = node.val + leftGain + rightGain;
+
+        // update global maximum if current path is higher
+        maxSum = Math.max(maxSum, currentPathSum);
+
+        // return max gain for upward recursion
+        return node.val + Math.max(leftGain, rightGain);
+    }
+}
