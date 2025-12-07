@@ -1,0 +1,44 @@
+import java.util.*;
+
+class Solution {
+    public List<List<String>> partition(String s) {
+        List<List<String>> result = new ArrayList<>();
+        if (s == null) return result;
+
+        int n = s.length();
+        // dp[i][j] == true if s.substring(i, j+1) is palindrome
+        boolean[][] dp = new boolean[n][n];
+        // fill DP: expand by length
+        for (int len = 1; len <= n; len++) {
+            for (int i = 0; i + len - 1 < n; i++) {
+                int j = i + len - 1;
+                if (s.charAt(i) == s.charAt(j)) {
+                    if (len <= 2) dp[i][j] = true;
+                    else dp[i][j] = dp[i + 1][j - 1];
+                } else {
+                    dp[i][j] = false;
+                }
+            }
+        }
+
+        backtrack(0, s, dp, new ArrayList<>(), result);
+        return result;
+    }
+
+    private void backtrack(int start, String s, boolean[][] dp,
+                           List<String> current, List<List<String>> result) {
+        int n = s.length();
+        if (start == n) {
+            result.add(new ArrayList<>(current));
+            return;
+        }
+
+        for (int end = start; end < n; end++) {
+            if (dp[start][end]) {
+                current.add(s.substring(start, end + 1));
+                backtrack(end + 1, s, dp, current, result);
+                current.remove(current.size() - 1);
+            }
+        }
+    }
+}
